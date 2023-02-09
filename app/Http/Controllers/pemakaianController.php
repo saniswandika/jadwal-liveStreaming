@@ -26,8 +26,8 @@ class pemakaianController extends Controller
      */
     public function index()
     {
-        $pemakaians = pemakaian::latest()->paginate(5);
-        return view('pemakaians.index',compact('pemakaians'))
+        $pemakaian = pemakaian::latest()->paginate(5);
+        return view('pemakaians.index',compact('pemakaian'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
     
@@ -38,7 +38,7 @@ class pemakaianController extends Controller
      */
     public function create()
     {
-        return view('pemakaians.create');
+        return view('pemakaian.create');
     }
     
     /**
@@ -68,7 +68,7 @@ class pemakaianController extends Controller
      */
     public function show(pemakaian $pemakaian)
     {
-        return view('pemakaians.show',compact('pemakaian'));
+        return view('pemakaian.show',compact('pemakaian'));
     }
     
     /**
@@ -79,7 +79,7 @@ class pemakaianController extends Controller
      */
     public function edit(pemakaian $pemakaian)
     {
-        return view('pemakaians.edit',compact('pemakaian'));
+        return view('pemakaian.edit',compact('pemakaian'));
     }
     
     /**
