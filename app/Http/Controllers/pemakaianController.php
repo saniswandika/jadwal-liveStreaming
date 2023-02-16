@@ -1,12 +1,12 @@
 <?php
-    
+
 namespace App\Http\Controllers;
-    
+
 use App\Models\pemakaian;
 use Illuminate\Http\Request;
-    
+
 class pemakaianController extends Controller
-{ 
+{
     /**
      * Display a listing of the resource.
      *
@@ -30,7 +30,7 @@ class pemakaianController extends Controller
         return view('pemakaians.index',compact('pemakaian'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -38,9 +38,9 @@ class pemakaianController extends Controller
      */
     public function create()
     {
-        return view('pemakaian.create');
+        return view('pemakaians.create');
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -53,13 +53,13 @@ class pemakaianController extends Controller
             'name' => 'required',
             'detail' => 'required',
         ]);
-    
+
         pemakaian::create($request->all());
-    
+
         return redirect()->route('pemakaians.index')
                         ->with('success','pemakaian created successfully.');
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -70,7 +70,7 @@ class pemakaianController extends Controller
     {
         return view('pemakaian.show',compact('pemakaian'));
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -79,9 +79,9 @@ class pemakaianController extends Controller
      */
     public function edit(pemakaian $pemakaian)
     {
-        return view('pemakaian.edit',compact('pemakaian'));
+        return view('pemakaians.edit',compact('pemakaian'));
     }
-    
+
     /**
      * Update the specified resource in storage.
      *
@@ -95,13 +95,13 @@ class pemakaianController extends Controller
             'name' => 'required',
             'detail' => 'required',
         ]);
-    
+
         $pemakaian->update($request->all());
-    
+
         return redirect()->route('pemakaians.index')
                         ->with('success','pemakaian updated successfully');
     }
-    
+
     /**
      * Remove the specified resource from storage.
      *
@@ -111,7 +111,7 @@ class pemakaianController extends Controller
     public function destroy(pemakaian $pemakaian)
     {
         $pemakaian->delete();
-    
+
         return redirect()->route('pemakaians.index')
                         ->with('success','pemakaian deleted successfully');
     }

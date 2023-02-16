@@ -9,7 +9,7 @@
     <div class="container-fluid">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Table Pemakaian</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Table jadwal</h6>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -17,8 +17,8 @@
                         <div class="pull-right">
                             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                                 <h1 class="h3 mb-0 text-gray-800"></h1>
-                                @can('pemakaian-create')
-                                    <a class="btn btn-success" href="{{ route('pemakaians.create') }}"> Create New pemakaian </a>
+                                @can('jadwal-create')
+                                    <a class="btn btn-success" href="{{ route('jadwals.create') }}"> Create New jadwal </a>
                                 @endcan
                             </div>
 
@@ -31,27 +31,27 @@
                             <tr>
                                 <th>No</th>
                                 <th>Name</th>
-                                <th>Details</th>
+                                <th>Tanggal</th>
                                 <th width="280px">Action</th>
                             </tr>
                         </thead>
 
-                        @foreach ($pemakaian as $product)
+                        @foreach ($jadwal as $product)
                         <tr>
                             <td>{{ ++$i }}</td>
                             <td>{{ $product->name }}</td>
-                            <td>{{ $product->detail }}</td>
+                            <td>{{ $product->tanggal }}</td>
                             <td>
-                                <form action="{{ route('pemakaians.destroy',$product->id) }}" method="POST">
-                                    <a class="btn btn-info" href="{{ route('pemakaians.show',$product->id) }}">Show</a>
-                                    @can('pemakaian-edit')
-                                    <a class="btn btn-primary" href="{{ route('pemakaians.edit',$product->id) }}">Edit</a>
+                                <form action="{{ route('jadwals.destroy',$product->id) }}" method="POST">
+                                    <a class="btn btn-info" href="{{ route('jadwals.show',$product->id) }}">Show</a>
+                                    @can('jadwal-edit')
+                                    <a class="btn btn-primary" href="{{ route('jadwals.edit',$product->id) }}">Edit</a>
                                     @endcan
 
 
                                     @csrf
                                     @method('DELETE')
-                                    @can('pemakaian-delete')
+                                    @can('jadwal-delete')
                                     <button type="submit" class="btn btn-danger">Delete</button>
                                     @endcan
                                 </form>
@@ -59,7 +59,7 @@
                         </tr>
                         @endforeach
                     </table>
-                    {!! $pemakaian->links() !!}
+                    {!! $jadwal->links() !!}
                 </div>
             </div>
         </div>
