@@ -30,8 +30,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Name</th>
-                                <th>Tanggal</th>
+                                <th>Months Name</th>
                                 <th width="280px">Action</th>
                             </tr>
                         </thead>
@@ -40,7 +39,7 @@
                         <tr>
                             <td>{{ ++$i }}</td>
                             <td>{{ $product->name }}</td>
-                            <td>{{ $product->tanggal }}</td>
+                            {{-- <td>{{ $product->tanggal }}</td> --}}
                             <td>
                                 <form action="{{ route('jadwals.destroy',$product->id) }}" method="POST">
                                     <a class="btn btn-info" href="{{ route('jadwals.show',$product->id) }}">Show</a>
