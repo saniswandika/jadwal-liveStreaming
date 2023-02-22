@@ -7,7 +7,7 @@ use App\Models\Event;
 
 class FullCalenderController extends Controller
 {
-        /**
+    /**
 
      * Write code on Method
 

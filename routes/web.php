@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\pemakaianController;
 use App\Http\Controllers\jadwalController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\FullCalenderController;
 
 
 Route::get('/', function () {
@@ -32,9 +33,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('jadwals', jadwalController::class);
 
 });
-Route::get('calendar-event', [CalenderController::class, 'index']);
-Route::post('calendar-crud-ajax', [CalenderController::class, 'calendarEvents']);
 Route::get('fullcalender', [FullCalenderController::class, 'index']);
 
 Route::post('fullcalenderAjax', [FullCalenderController::class, 'ajax']);
-
