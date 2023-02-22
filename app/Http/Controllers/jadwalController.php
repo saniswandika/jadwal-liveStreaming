@@ -13,20 +13,27 @@ class jadwalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    function __construct()
-    {
-         $this->middleware('permission:jadwal-list|jadwal-create|jadwal-edit|jadwal-delete', ['only' => ['index','show']]);
-         $this->middleware('permission:jadwal-create', ['only' => ['create','store']]);
-         $this->middleware('permission:jadwal-edit', ['only' => ['edit','update']]);
-         $this->middleware('permission:jadwal-delete', ['only' => ['destroy']]);
-    }
+    // function __construct()
+    // {
+    //      $this->middleware('permission:jadwal-list|jadwal-create|jadwal-edit|jadwal-delete', ['only' => ['index','show']]);
+    //      $this->middleware('permission:jadwal-create', ['only' => ['create','store']]);
+    //      $this->middleware('permission:jadwal-edit', ['only' => ['edit','update']]);
+    //      $this->middleware('permission:jadwal-delete', ['only' => ['destroy']]);
+    // }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if($request->ajax()) {  
+            $data = jadwal::whereDate('tanggal', '>=', $request->start)
+                // ->whereDate('event_end',   '<=', $request->end)
+                ->get(['id', 'nama', 'tanggal']);
+            return response()->json($data);
+        }
+        // return view('jadwals.index');
         $jadwal = jadwal::latest()->paginate(5);
         return view('jadwals.index',compact('jadwal'))
             ->with('i', (request()->input('page', 1) - 1) * 5);

@@ -13,9 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('jadwals', function (Blueprint $table) {
-            $table->string('name');
-            $table->text('tanggal');
+        Schema::create('events', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->dateTime('start_date');
+            $table->dateTime('end_date');
+            $table->timestamps();
         });
     }
 
@@ -26,8 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('jadwals', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('events');
     }
 };

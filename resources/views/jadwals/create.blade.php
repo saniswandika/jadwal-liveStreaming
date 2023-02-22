@@ -44,7 +44,8 @@
 
                             <div class="form-group">
                                 <label class="font-weight-bold">TANGGAL</label>
-                                <textarea class="form-control @error('tanggal') is-invalid @enderror" name="tanggal" rows="5" placeholder="Pilih Tanggal">{{ old('tanggal') }}</textarea>
+                                <input type="date" name="tanggal" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                                {{-- <textarea class="form-control @error('tanggal') is-invalid @enderror" name="tanggal" rows="5" placeholder="Pilih Tanggal">{{ old('tanggal') }}</textarea> --}}
 
                                 <!-- error message untuk content -->
                                 @error('tanggal')
