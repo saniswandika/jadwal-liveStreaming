@@ -36,7 +36,7 @@
                             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                                 <h1 class="h3 mb-0 text-gray-800"></h1>
                                 @can('pemakaian-create')
-                                <a class="btn btn-success" data-toggle="modal" data-target="#create"> Create New User</a>
+                                <a class="btn btn-success" data-toggle="modal" data-target="#create"> Buat Akun</a>
                                 @endcan
                             </div>
                         
@@ -48,10 +48,10 @@
                     <thead>
                           <tr>
                             <th>No</th>
-                            <th>Name</th>
+                            <th>Nama akun</th>
                             <th>Email</th>
                             <th>Roles</th>
-                            <th width="280px">Action</th>
+                            <th width="280px"></th>
                           </tr>
                     </thead>
                     <tbody>
@@ -169,7 +169,7 @@
                                     </div>
                                     <div class="modal-footer">
                                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                      <button type="submit" class="btn btn-primary">Save changes</button>
+                                      <button type="submit" class="btn btn-primary">Simpan</button>
                                     </div>
                                   </form>
                                 </div>
@@ -285,7 +285,7 @@
                                     </div>
                                     <div class="modal-footer">
                                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                      <button type="submit" class="btn btn-primary">Save changes</button>
+                                      <button type="submit" class="btn btn-primary">Simpan</button>
                                     </div>
                                   {!! Form::close() !!}
                                 </div>
