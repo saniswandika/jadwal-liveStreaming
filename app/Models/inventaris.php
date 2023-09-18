@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CalendarEvent extends Model
+class inventaris extends Model
 {
     use HasFactory;
+    protected $table = 'inventaris';
     protected $fillable = [
-        'event_title', 
-        'event_start', 
-        'event_end'
+        'jenis_barang', 'nama_barang'
     ];
 }
