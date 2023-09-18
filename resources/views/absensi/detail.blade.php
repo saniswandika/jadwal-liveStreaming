@@ -38,7 +38,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Pegawai</th>
+                                <th>Nama Karyawan</th>
                                 <th>Tanggal Absensi</th>
                             </tr>
                         </thead>
@@ -62,20 +62,20 @@
                                                         <p>{{ date('d', strtotime($detail->tanggal_absen)) }}</p>
                                                         <button
                                                             class="btn {{ $detail->attendance ? 'btn-success' : 'btn-danger' }}"
-                                                            data-toggle="modal" data-target="#modal{{ $index }}">
+                                                            data-toggle="modal" data-target="#modal{{ $detail->id }}">
                                                             {{ $detail->attendance ? 'H' : 'A' }}
                                                         </button>
                                                     </td>
 
                                                     <!-- Modal -->
-                                                    <div class="modal fade" id="modal{{ $index }}" tabindex="-1"
-                                                        role="dialog" aria-labelledby="modalLabel{{ $index }}"
+                                                    <div class="modal fade" id="modal{{ $detail->id }}" tabindex="-1"
+                                                        role="dialog" aria-labelledby="modalLabel{{ $detail->id }}"
                                                         aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title"
-                                                                        id="modalLabel{{ $index }}">Detail Absensi
+                                                                        id="modalLabel{{ $detail->name }}">Detail Absensi {{ $detail->name }}
                                                                     </h5>
                                                                     <button type="button" class="close"
                                                                         data-dismiss="modal" aria-label="Close">
@@ -88,7 +88,8 @@
                                                                     <p>Tanggal Absen: {{ $detail->tanggal_absen }}</p>
                                                                     <p>Nama: {{ $detail->name }}</p>
                                                                     <p>Nama Acara: {{ $detail->nama_acara }}</p>
-                                                                    <p>Bukti Kehadiran: <img src="{{ url('storage/bukti_absen/' . $detail->bukti_absen) }}" alt="Bukti Kehadiran" style="max-width: 50%"></p>
+                                                                    <p>Bukti Kehadiran:</p>
+                                                                    <img src="{{ asset('bukti_absen/' . $detail->bukti_absen) }}" alt="Bukti Kehadiran" style="max-width: 50%">
                                                                     <p>Kehadiran:
                                                                         {{ $detail->attendance ? 'Hadir' : 'Tidak Hadir' }}
                                                                     </p>

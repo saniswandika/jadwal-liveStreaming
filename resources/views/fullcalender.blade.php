@@ -4,7 +4,7 @@
 
 <head>
 
-    <title>Laravel Fullcalender Tutorial Tutorial - ItSolutionStuff.com</title>
+    <title>Kalender</title>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 

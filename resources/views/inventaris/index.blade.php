@@ -24,7 +24,7 @@
                                 @can('inventaris-create')
                                   <!-- Button trigger modal -->
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                            Masukan inventaris  
+                                            Tambah Inventaris  
                                         </button>
                                         
                                         <!-- Modal -->
@@ -32,7 +32,7 @@
                                             <div class="modal-dialog modal-xl" role="document">
                                             <div class="modal-content ">
                                                 <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Form Buat Data Inventaris</h5>
+                                                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Inventaris</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
@@ -117,7 +117,7 @@
                                             @csrf
                                             @method('DELETE')
                                             @can('inventaris-delete')
-                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                            <button type="submit" class="btn btn-danger">Hapus</button>
                                             @endcan
                                             @can('inventaris-edit')
                                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit{{ $data->id }}">

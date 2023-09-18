@@ -8,8 +8,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Event;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-use DB;
-    
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
 class RoleController extends Controller
 {
     /**
@@ -17,6 +18,8 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    
     function __construct()
     {
          $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index','store']]);
@@ -32,9 +35,19 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
+
+        $users =  Auth::user()->id;
+
+        $checkRoles = DB::table('model_has_roles')
+        ->select('users.name', 'roles.name as role_name')
+        ->leftJoin('users', 'users.id', '=', 'model_has_roles.model_id')
+        ->leftJoin('roles', 'roles.id', '=', 'model_has_roles.role_id')
+        ->where('model_id', $users)
+        ->first();
+        
         $jadwals = Event::all();
         $roles = Role::orderBy('id','DESC')->paginate(5);
-        return view('roles.index',compact('roles','jadwals'))
+        return view('roles.index',compact('roles','jadwals','checkRoles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
     
@@ -45,9 +58,17 @@ class RoleController extends Controller
      */
     public function create()
     {
+        $users =  Auth::user()->id;
+
+        $checkRoles = DB::table('model_has_roles')
+        ->select('users.name', 'roles.name as role_name')
+        ->leftJoin('users', 'users.id', '=', 'model_has_roles.model_id')
+        ->leftJoin('roles', 'roles.id', '=', 'model_has_roles.role_id')
+        ->where('model_id', $users)
+        ->first();
         $jadwals = Event::all();
         $permission = Permission::get();
-        return view('roles.create',compact('permission','jadwals'));
+        return view('roles.create',compact('permission','jadwals','checkRoles'));
     }
     
     /**
@@ -77,13 +98,23 @@ class RoleController extends Controller
      */
     public function show($id)
     {
+
+        $users =  Auth::user()->id;
+
+        $checkRoles = DB::table('model_has_roles')
+        ->select('users.name', 'roles.name as role_name')
+        ->leftJoin('users', 'users.id', '=', 'model_has_roles.model_id')
+        ->leftJoin('roles', 'roles.id', '=', 'model_has_roles.role_id')
+        ->where('model_id', $users)
+        ->first();
+
         $jadwals = Event::all();
         $role = Role::find($id);
         $rolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
             ->where("role_has_permissions.role_id",$id)
             ->get();
     
-        return view('roles.show',compact('role','rolePermissions','jadwals'));
+        return view('roles.show',compact('role','rolePermissions','jadwals','checkRoles'));
     }
     
     /**
@@ -100,8 +131,18 @@ class RoleController extends Controller
         $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
             ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
             ->all();
+
+        $users =  Auth::user()->id;
+
+        $checkRoles = DB::table('model_has_roles')
+        ->select('users.name', 'roles.name as role_name')
+        ->leftJoin('users', 'users.id', '=', 'model_has_roles.model_id')
+        ->leftJoin('roles', 'roles.id', '=', 'model_has_roles.role_id')
+        ->where('model_id', $users)
+        ->first();
+            
     
-        return view('roles.edit',compact('role','permission','rolePermissions','jadwals'));
+        return view('roles.edit',compact('role','permission','rolePermissions','jadwals','checkRoles'));
     }
     
     /**
@@ -138,5 +179,19 @@ class RoleController extends Controller
         DB::table("roles")->where('id',$id)->delete();
         return redirect()->route('roles.index')
                         ->with('success','Role deleted successfully');
+    }
+
+    public function getRoles()
+    {
+        $users =  Auth::user()->id;
+        $getAuth = DB::table('model_has_roles')
+            ->select('users.name', 'roles.name as role_name')
+            ->leftJoin('users', 'users.id', '=', 'model_has_roles.model_id')
+            ->leftJoin('roles', 'roles.id', '=', 'model_has_roles.role_id')
+            ->where('model_id', $users)
+            ->first();
+        
+
+        return $getAuth ;
     }
 }

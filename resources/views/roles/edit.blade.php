@@ -31,8 +31,8 @@
             <div class="card-body">
                 <div class="text-center">
                     <img class="profile-user-img img-fluid img-circle"
-                    src="{{asset('images/pp.png')}}"
-                    alt="User profile picture">
+                    src="{{ asset('assets/img/undraw_profile.svg') }}"
+                    alt="User profile picture" style="max-width: 30%">
                 </div>
                 <h3 class="profile-username text-center"> Role {{ $role->name }}</h3>
                 <div class="form-group">
@@ -57,7 +57,7 @@
                 </div>
             </div>
             <ul class="list-group list-group-unbordered mb-3 center">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Simpan</button>
             </ul>
         </div>
     {!! Form::close() !!}

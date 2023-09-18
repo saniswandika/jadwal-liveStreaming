@@ -23,12 +23,15 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     private $checkRoles;
     function __construct()
     {
          $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index','store']]);
          $this->middleware('permission:role-create', ['only' => ['create','store']]);
          $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
          $this->middleware('permission:role-delete', ['only' => ['destroy']]);
+         $this->checkRoles = new RoleController;
     }
     /**
      * Display a listing of the resource.
@@ -36,14 +39,16 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {
+    {   
+
+        $checkRoles = $this->checkRoles->getRoles();
         $jadwals = Event::all();
         $data = User::orderBy('id','DESC')->paginate(5);
       
         $roles = DB::table('roles')->get();
         // dd($roles);
         // $roles = Role::pluck('name','name')->all();
-        return view('users.index',compact('data','roles','jadwals'))
+        return view('users.index',compact('data','roles','jadwals','checkRoles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
     
@@ -53,10 +58,11 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
+    {     
+        $checkRoles = $this->checkRoles->getRoles();
         $jadwals = Event::all();
         $roles = Role::pluck('name','name')->all();
-        return view('users.create',compact('roles','jadwals'));
+        return view('users.create',compact('roles','jadwals','checkRoles'));
     }
     
     /**
@@ -96,8 +102,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
+        $checkRoles = $this->checkRoles->getRoles();
         $user = User::find($id);
-        return view('users.show',compact('user'));
+        return view('users.show',compact('user','checkRoles'));
     }
     
     /**
@@ -108,11 +115,13 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+
+        $checkRoles = $this->checkRoles->getRoles();
         $user = User::find($id);
         $roles = Role::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
     
-        return view('users.edit',compact('user','roles','userRole'));
+        return view('users.edit',compact('user','roles','userRole','checkRoles'));
     }
     
     /**

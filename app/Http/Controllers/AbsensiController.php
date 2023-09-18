@@ -7,6 +7,7 @@ use App\Models\Event;
 use App\Models\jadwal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon; // Import Carbon untuk bekerja dengan tanggal
 
 class AbsensiController extends Controller
 {
@@ -15,18 +16,26 @@ class AbsensiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    private $checkRoles;
+    public function __construct()
+    {
+        $this->checkRoles = new RoleController;
+    }
     public function index()
     {
+        $checkRoles = $this->checkRoles->getRoles();
         $jadwals = jadwal::all();
         $absensi = Absensi::groupBy('periode')->select('periode')->get();
-        $event = Event::all();
+        $event = Event::all(); // Mengambil data event
 
         // dd($absensi);
-        return view('absensi.index', compact('jadwals', 'absensi', 'event'));
+        return view('absensi.index', compact('jadwals', 'absensi', 'event', 'checkRoles'));
     }
 
     public function detail($periode)
     {
+        $checkRoles = $this->checkRoles->getRoles();
         $jadwals = jadwal::all();
         $bulan = Absensi::where('periode', $periode)->first();
 
@@ -36,17 +45,51 @@ class AbsensiController extends Controller
 
 
         // dd($absensi);
-        return view('absensi.detail', compact('jadwals', 'absensiDetails', 'bulan'));
+        return view('absensi.detail', compact('jadwals', 'absensiDetails', 'bulan', 'checkRoles'));
     }
-    public function userIndex($name)
+    public function userAbsen($name)
     {
+        $checkRoles = $this->checkRoles->getRoles();
         $jadwals = jadwal::all();
-        // $bulan = Absensi::where('periode', $periode)->first();
+        $periode = Absensi::groupBy('periode')->select('id','name', 'tanggal_absen', 'nama_acara', 'periode', 'bukti_absen', 'nama_pj', 'attendance','keterangan')
+        ->get();
+        // dd($periode);  
+        $event = Event::all();
 
-        $absensiDetails = Absensi::groupBy('name',$name)
-            ->select('name', 'tanggal_absen', 'nama_acara', 'bukti_absen', 'nama_pj', 'attendance')
-            ->get();
-        return view('absensi.user.index',compact('jadwals'));
+        // $bulan = Absensi::where('periode', $periode)->first();
+        $pegawai = Absensi::where('name', $name)
+        ->select('name')
+        ->first();
+
+        
+// Mendapatkan bulan ini
+    $bulanIni = Carbon::now()->month;
+
+    // Mendapatkan tahun ini
+    $tahunIni = Carbon::now()->year;
+
+    // Mendapatkan bulan sebelumnya
+    $bulanSebelumnya = Carbon::now()->subMonth()->month;
+
+    // Mengambil data absensi untuk bulan ini dan bulan sebelumnya
+    $absensiDetails = Absensi::where('name', $name)
+        ->where(function ($query) use ($bulanIni, $tahunIni, $bulanSebelumnya) {
+            $query->whereMonth('tanggal_absen', $bulanIni)
+                ->whereYear('tanggal_absen', $tahunIni)
+                ->orWhere(function ($query) use ($bulanSebelumnya, $tahunIni) {
+                    $query->whereMonth('tanggal_absen', $bulanSebelumnya)
+                        ->whereYear('tanggal_absen', $tahunIni);
+                });
+        })
+        ->groupBy('tanggal_absen')
+        ->select('name', 'tanggal_absen', 'nama_acara', 'periode', 'bukti_absen', 'nama_pj', 'attendance', 'keterangan')
+        ->get();
+
+        $absensiByBulan = $absensiDetails->groupBy(function ($detail) {
+            return date('Y-m', strtotime($detail->tanggal_absen));
+        });
+        // dd($absensiDetails);
+        return view('absensi.user', compact('absensiByBulan','jadwals', 'checkRoles', 'absensiDetails', 'event','pegawai','periode'));
     }
 
     /**
@@ -89,14 +132,14 @@ class AbsensiController extends Controller
         if ($request->hasFile('bukti_absen')) {
             $file = $request->file('bukti_absen');
             $filename = $file->getClientOriginalName(); // Mengambil nama asli file
-            $path = $file->storeAs('public/bukti_absen', $filename); // Menyimpan file dengan nama asli ke direktori storage/app/public/bukti_absen
+            $path = $file->storeAs('/bukti_absen', $filename); // Menyimpan file dengan nama asli ke direktori storage/app/public/bukti_absen
 
             $absensi->bukti_absen = $filename;
         }
         $absensi->nama_pj = $validatedData['nama_pj'];
         $absensi->attendance = $validatedData['attendance'];
         $absensi->keterangan = $validatedData['keterangan'];
-
+        // dd($absensi);
         // Simpan absensi baru ke dalam database
         $absensi->save();
 

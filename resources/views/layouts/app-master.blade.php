@@ -93,6 +93,19 @@
                     <span>Dashboard</span></a>
             </li>
 
+            <li class="nav-item">
+                @if($checkRoles->role_name == 'Admin')
+                    <a class="nav-link" href="/absensi">
+                        <i class="bi bi-clipboard-check"></i>
+                        <span>Absensi</span>
+                    </a>
+                @else
+                <a class="nav-link" href="{{ route('absensi.user', ['name' => $checkRoles->name]) }}">
+                    <i class="bi bi-clipboard-check"></i>
+                    <span>Absensi</span>
+                </a>             
+                @endif
+            </li>
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -100,19 +113,7 @@
             <div class="sidebar-heading">
                 Keperluan Streaming
             </div>
-            <li class="nav-item">
-                @if($role == 'admin')
-                    <a class="nav-link" href="/absensi">
-                        <i class="bi bi-clipboard-check"></i>
-                        <span>Absensi</span>
-                    </a>
-                @else
-                    <a class="nav-link" href="/user/absensi/detail/{{ $name }}">
-                        <i class="bi bi-clipboard-check"></i>
-                        <span>Absensi</span>
-                    </a>
-                @endif
-            </li>
+           
                       
             @can('pemakaian-list')
                 <li class="nav-item">
@@ -149,7 +150,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/roles">
                         <i class="bi bi-person-lock"></i>
-                        <span>Manage Roles Users</span></a>
+                        <span>List Roles</span></a>
                 </li>
             @endcan
             @can('role-list') 
@@ -157,7 +158,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/users">
                         <i class="bi bi-person-vcard-fill"></i>
-                        <span>User Management</span></a>
+                        <span>Manajemen Akun</span></a>
                 </li>
             @endcan    
 

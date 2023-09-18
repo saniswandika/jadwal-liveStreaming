@@ -166,7 +166,7 @@
                             <td>
                                 <form action="{{ route('pemakaians.destroy',$product->id) }}" method="POST">
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#show{{ $product->id }}">
-                                        show 
+                                        Lihat 
                                      </button>
                                     {{-- @can('pemakaian-edit')
                                     <a class="btn btn-primary" href="{{ route('pemakaians.edit',$product->id) }}">Edit</a>

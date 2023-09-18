@@ -35,8 +35,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('jadwals', jadwalController::class);
     Route::resource('absensi', AbsensiController::class);
     Route::get('/absensi/detail/periode={periode}', [AbsensiController::class, 'detail'])->name('absensi.detail');
-    Route::get('/user/absensi/detail/{name}', [AbsensiController::class, 'userIndex'])->name('absensi.user');
+    Route::get('/user/absen={name}', [AbsensiController::class, 'userAbsen'])->name('absensi.user');
 });
+
+Route::get('/getRoles',[RoleController::class,'getRoles'])->name('getroles');
+
 Route::get('fullcalender', [FullCalenderController::class, 'index']);
 // Route::get('/events', [EventController::class, 'index']);
 Route::post('fullcalenderAjax', [FullCalenderController::class, 'ajax']);

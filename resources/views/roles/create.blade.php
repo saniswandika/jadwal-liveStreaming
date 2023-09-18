@@ -71,7 +71,7 @@
         <div class="card mt-4">
             <div class="card-header">
                 <div class="d-flex justify-content-between">
-                    <div class="p-2 bd-highlight">Create Role</div>
+                    <div class="p-2 bd-highlight">Tambah Role</div>
                     
                     <div class="p-2 bd-highlight">
                         <ul class="list-group list-group-unbordered center">
@@ -103,7 +103,7 @@
                 </div>
             </div>
             <ul class="list-group list-group-unbordered mb-3 center">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Simpan</button>
             </ul>
         </div>
     {!! Form::close() !!}

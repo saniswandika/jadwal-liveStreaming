@@ -26,10 +26,19 @@ class jadwalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    private $checkRoles;
+
+    public function __construct()
+    {
+        $this->checkRoles = new RoleController;
+    }
     public function index(Request $request)
     {
-        $jadwals = Event::all();
-        return view('jadwals.index', compact('jadwals'));
+
+        $checkRoles = $this->checkRoles->getRoles();
+        $jadwals = Event::orderBy('created_at', 'desc')->get();
+        return view('jadwals.index', compact('jadwals','checkRoles'));
     }
 
     /**
@@ -79,8 +88,9 @@ class jadwalController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(jadwal $jadwal)
-    {
-        return view('jadwals.edit',compact('jadwal'));
+    {   
+        $checkRoles = $this->checkRoles->getRoles();
+        return view('jadwals.edit',compact('jadwal','checkRoles'));
     }
     public function update(Request $request,$id)
     {

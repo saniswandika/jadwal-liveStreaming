@@ -10,7 +10,7 @@
 <div class="container-fluid">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Table Role</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Tabel List Roles</h6>
         </div>
         <div class="card-body">
             <div class="row">
@@ -19,7 +19,7 @@
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
                             <h1 class="h3 mb-0 text-gray-800"></h1>
                             @can('pemakaian-create')
-                                <a class="btn btn-success" href="{{ route('roles.create') }}"> Create New Role </a>
+                                <a class="btn btn-success" href="{{ route('roles.create') }}"> Tambah Roles Baru </a>
                             @endcan
                         </div>
                     
@@ -41,13 +41,13 @@
                           <td>{{ ++$i }}</td>
                           <td>{{ $role->name }}</td>
                           <td>
-                              <a class="btn btn-info" href="{{ route('roles.show',$role->id) }}">Show</a>
+                              <a class="btn btn-info" href="{{ route('roles.show',$role->id) }}">Lihat</a>
                               @can('role-edit')
                                   <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Edit</a>
                               @endcan
                               @can('role-delete')
                                   {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
-                                      {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                                      {!! Form::submit('Hapus', ['class' => 'btn btn-danger']) !!}
                                   {!! Form::close() !!}
                               @endcan
                           </td>

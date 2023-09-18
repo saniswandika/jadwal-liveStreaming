@@ -27,7 +27,7 @@
       <div class="container-fluid">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Table Users Management</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Tabel Manajemen Akun</h6>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -36,7 +36,7 @@
                             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                                 <h1 class="h3 mb-0 text-gray-800"></h1>
                                 @can('pemakaian-create')
-                                <a class="btn btn-success" data-toggle="modal" data-target="#create"> Buat Akun</a>
+                                <a class="btn btn-success" data-toggle="modal" data-target="#create"> Tambah Akun</a>
                                 @endcan
                             </div>
                         
@@ -68,14 +68,13 @@
                                 @endif
                               </td>
                               <td>
-                                @can('pemakaian-list')
-                                  <a class="btn btn-info"  data-toggle="modal" data-target="#details{{$user->id}}">Show</a>
-                                @endcan
+                                  <a class="btn btn-info"  data-toggle="modal" data-target="#details{{$user->id}}">Lihat</a>
+                                
                                 @can('pemakaian-list')
                                   <a class="btn btn-primary" data-toggle="modal" data-target="#update{{$user->id}}">Edit</a>
                                 @endcan
                                 @can('pemakaian-list')
-                                    <button class="btn btn-danger" data-toggle="modal" data-target="#Delete{{$user->id}}">Delete</button>
+                                    <button class="btn btn-danger" data-toggle="modal" data-target="#Delete{{$user->id}}">Hapus</button>
                                 @endcan
                               </td>
                             </tr>
@@ -85,18 +84,18 @@
                                   <!-- Modal content-->
                                   <div class="modal-content">
                                       <div class="modal-header bg-danger">
-                                          <h4 class="modal-title">Delete Data Akun User</h4>    
+                                          <h4 class="modal-title">Delete Data Akun</h4>    
                                       </div>
                                       <div class="modal-body">
-                                          <p class="text-center">apakah ada yakin untuk menghapus Data Akun User ini?</p>
+                                          <p class="text-center">apakah ada yakin untuk menghapus Data Akun ini?</p>
                                           <form action="{{ route('users.destroy',$user->id) }}" method="POST">
                                               <div class="modal-footer center">
                                                   <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                                                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                      <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
                                                       @csrf
                                                       @method('DELETE')
                                                       {{-- @can('dtks-delete') --}}
-                                                          <button type="submit" class="btn btn-danger">Delete</button>
+                                                          <button type="submit" class="btn btn-danger">Hapus</button>
                                                       {{-- @endcan --}}
                                                   </div>
                                               </div>
@@ -111,7 +110,7 @@
                               <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                      <h5 class="modal-title" id="exampleModalLongTitle">Membuat Akun User</h5>
+                                      <h5 class="modal-title" id="exampleModalLongTitle">Membuat Akun Baru</h5>
                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span>
                                       </button>
@@ -168,7 +167,7 @@
                                 
                                     </div>
                                     <div class="modal-footer">
-                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                                       <button type="submit" class="btn btn-primary">Simpan</button>
                                     </div>
                                   </form>
@@ -182,15 +181,15 @@
                                   <!-- Modal content-->
                                   <div class="modal-content">
                                       <div class="modal-header bg-primary">
-                                          <h4 class="modal-title">Detail User</h4>
+                                          <h4 class="modal-title">Detail Akun</h4>
                                       </div>
                                       <div class="modal-body">
                                         <div class="card card-primary card-outline">
                                           <div class="card-body box-profile">
                                             <div class="text-center">
                                               <img class="profile-user-img img-fluid img-circle"
-                                                  src="{{asset('images/pp.png')}}"
-                                                  alt="User profile picture">
+                                                  src="{{ asset('assets/img/undraw_profile.svg') }}"
+                                                  alt="User profile picture" style="max-width: 40%;">
                                             </div>
                                       
                                             <h3 class="profile-username text-center">{{ $user->name }}</h3>
@@ -215,7 +214,7 @@
                                           </div>
                                         </div>
                                         <div class="modal-footer">
-                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                                         </div>
                                     </div>
                                   </div>
@@ -284,7 +283,7 @@
                                   
                                     </div>
                                     <div class="modal-footer">
-                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                                       <button type="submit" class="btn btn-primary">Simpan</button>
                                     </div>
                                   {!! Form::close() !!}
