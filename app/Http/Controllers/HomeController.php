@@ -14,9 +14,12 @@ class HomeController extends Controller
      *
      * @return void
      */
+
+    private $checkRoles;
     public function __construct()
     {
         $this->middleware('auth');
+        $this->checkRoles = new RoleController;
     }
 
     /**
@@ -25,7 +28,9 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
+    {   
+
+        $checkRoles = $this->checkRoles->getRoles();
         $jadwals = Event::all();
         Carbon::setLocale('id');
         $formattedDate = Carbon::now()->formatLocalized('%Y-%m-%d');
@@ -43,6 +48,6 @@ class HomeController extends Controller
         $labels = $users->keys();
         $data = $users->values();
         
-        return view('home', compact('labels', 'data','formattedDate','jadwalRecord','jadwals'));
+        return view('home', compact('labels', 'data','formattedDate','jadwalRecord','jadwals','checkRoles'));
     }
 }

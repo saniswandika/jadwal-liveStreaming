@@ -153,7 +153,7 @@
                       </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                 </div>
             </div>
         </div>
@@ -180,7 +180,7 @@
                                     <h1 class="h3 mb-0 text-gray-800"></h1>
                                     @can('inventaris-create')
                                       <!-- Button trigger modal -->
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
                                                 Tambah Jadwal
                                             </button>
                                             
@@ -255,7 +255,7 @@
                                     @csrf
                                     @method('DELETE')
                                     @can('jadwal-delete')
-                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                    <button type="submit" class="btn btn-danger">Hapus</button>
                                     @endcan
                                     @can('jadwal-edit')
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit{{ $product->id }}">

@@ -15,12 +15,16 @@ class pemakaianController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+    private $checkRoles ;
     function __construct()
     {
          $this->middleware('permission:pemakaian-list|pemakaian-create|pemakaian-edit|pemakaian-delete', ['only' => ['index','show']]);
          $this->middleware('permission:pemakaian-create', ['only' => ['create','store']]);
          $this->middleware('permission:pemakaian-edit', ['only' => ['edit','update']]);
          $this->middleware('permission:pemakaian-delete', ['only' => ['destroy']]);
+         $this->checkRoles = new RoleController;
     }
     /**
      * Display a listing of the resource.
@@ -29,11 +33,14 @@ class pemakaianController extends Controller
      */
     public function index()
     {
+
+        $checkRoles = $this->checkRoles->getRoles();
         $jadwals = Event::all();
         $pemakaian = pemakaian::all();
        
-        $barang = inventaris::all();
-        return view('pemakaians.index',compact('pemakaian','barang','jadwals'))
+        $barang = inventaris::orderByDesc('created_at')->get();
+
+        return view('pemakaians.index',compact('pemakaian','barang','jadwals','checkRoles'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -44,7 +51,8 @@ class pemakaianController extends Controller
      */
     public function create()
     {
-        return view('pemakaians.create');
+        $checkRoles = $this->checkRoles->getRoles();
+        return view('pemakaians.create',compact('checkRoles'));
     }
 
     /**
@@ -78,8 +86,9 @@ class pemakaianController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(pemakaian $pemakaian)
-    {
-        return view('pemakaian.show',compact('pemakaian'));
+    {   
+        $checkRoles = $this->checkRoles->getRoles();
+        return view('pemakaian.show',compact('pemakaian','checkRoles'));
     }
 
     /**
@@ -89,8 +98,10 @@ class pemakaianController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(pemakaian $pemakaian)
-    {
-        return view('pemakaians.edit',compact('pemakaian'));
+    {   
+
+        $checkRoles = $this->checkRoles->getRoles();
+        return view('pemakaians.edit',compact('pemakaian','checkRoles'));
     }
 
     /**

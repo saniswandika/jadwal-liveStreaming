@@ -117,7 +117,7 @@
                                             @csrf
                                             @method('DELETE')
                                             @can('inventaris-delete')
-                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                            <button type="submit" class="btn btn-danger">Hapus</button>
                                             @endcan
                                             @can('inventaris-edit')
                                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit{{ $data->id }}">

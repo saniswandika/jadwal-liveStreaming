@@ -8,12 +8,15 @@ use App\Models\inventaris;
 use Illuminate\Support\Facades\DB;
 class inventarisController extends Controller
 {
+
+    private $checkRoles ;
     function __construct()
     {
          $this->middleware('permission:inventaris-list|inventaris-create|inventaris-edit|inventaris-delete', ['only' => ['index','show']]);
          $this->middleware('permission:inventaris-create', ['only' => ['create','store']]);
          $this->middleware('permission:inventaris-edit', ['only' => ['edit','update']]);
          $this->middleware('permission:inventaris-delete', ['only' => ['destroy']]);
+         $this->checkRoles = new RoleController;
     }
     /**
      * Display a listing of the resource.
@@ -21,11 +24,15 @@ class inventarisController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
+        $checkRoles = $this->checkRoles->getRoles();
         $jadwals = Event::all();
         $inventaris = inventaris::orderBy('jenis_barang')->get();
-        // $data = inventaris::orderBy('jenis_barang')->get();
-        $data = inventaris::orderBy('jenis_barang')->orderBy('nama_barang')->get(); // mengambil data barang dari database, diurutkan berdasarkan jenis dan nama
+
+        $data = inventaris::orderBy('jenis_barang')
+                  ->orderBy('nama_barang')
+                  ->orderByDesc('created_at') // Sorting by latest input
+                  ->get();
 
         $groupedData = $data->groupBy('jenis_barang');
         // dd($data);
@@ -34,7 +41,7 @@ class inventarisController extends Controller
        
         // $data = inventaris::where('jenis_barang', $inventaris->jenis_barang)->count(); 
         // dd($result);
-        return view('inventaris.index',compact('inventaris','jadwals','groupedData'))
+        return view('inventaris.index',compact('inventaris','jadwals','groupedData','checkRoles'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 

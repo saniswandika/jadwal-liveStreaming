@@ -15,18 +15,26 @@ class AbsensiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    private $checkRoles;
+    public function __construct()
+    {
+        $this->checkRoles = new RoleController;
+    }
     public function index()
     {
+        $checkRoles = $this->checkRoles->getRoles();
         $jadwals = jadwal::all();
         $absensi = Absensi::groupBy('periode')->select('periode')->get();
         $event = Event::all();
 
         // dd($absensi);
-        return view('absensi.index', compact('jadwals', 'absensi', 'event'));
+        return view('absensi.index', compact('jadwals', 'absensi', 'event', 'checkRoles'));
     }
 
     public function detail($periode)
     {
+        $checkRoles = $this->checkRoles->getRoles();
         $jadwals = jadwal::all();
         $bulan = Absensi::where('periode', $periode)->first();
 
@@ -36,17 +44,27 @@ class AbsensiController extends Controller
 
 
         // dd($absensi);
-        return view('absensi.detail', compact('jadwals', 'absensiDetails', 'bulan'));
+        return view('absensi.detail', compact('jadwals', 'absensiDetails', 'bulan', 'checkRoles'));
     }
-    public function userIndex($name)
+    public function userAbsen($name)
     {
+        $checkRoles = $this->checkRoles->getRoles();
         $jadwals = jadwal::all();
-        // $bulan = Absensi::where('periode', $periode)->first();
+        $periode = Absensi::groupBy('periode')->select('periode')->get();  
+        $event = Event::all();
 
-        $absensiDetails = Absensi::groupBy('name',$name)
-            ->select('name', 'tanggal_absen', 'nama_acara', 'bukti_absen', 'nama_pj', 'attendance')
+        // $bulan = Absensi::where('periode', $periode)->first();
+        $pegawai = Absensi::where('name', $name)
+        ->select('name')
+        ->first();
+
+        $absensiDetails = Absensi::where('name', $name)
+            ->groupBy('name', 'tanggal_absen', 'nama_acara', 'periode', 'bukti_absen', 'nama_pj', 'attendance')
+            ->select('name', 'tanggal_absen', 'nama_acara', 'periode', 'bukti_absen', 'nama_pj', 'attendance')
             ->get();
-        return view('absensi.user.index',compact('jadwals'));
+
+        // dd($absensiDetails);
+        return view('absensi.user', compact('jadwals', 'checkRoles', 'absensiDetails', 'event','pegawai','periode'));
     }
 
     /**

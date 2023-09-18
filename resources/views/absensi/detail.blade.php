@@ -62,20 +62,20 @@
                                                         <p>{{ date('d', strtotime($detail->tanggal_absen)) }}</p>
                                                         <button
                                                             class="btn {{ $detail->attendance ? 'btn-success' : 'btn-danger' }}"
-                                                            data-toggle="modal" data-target="#modal{{ $index }}">
+                                                            data-toggle="modal" data-target="#modal{{ $detail->id }}">
                                                             {{ $detail->attendance ? 'H' : 'A' }}
                                                         </button>
                                                     </td>
 
                                                     <!-- Modal -->
-                                                    <div class="modal fade" id="modal{{ $index }}" tabindex="-1"
-                                                        role="dialog" aria-labelledby="modalLabel{{ $index }}"
+                                                    <div class="modal fade" id="modal{{ $detail->id }}" tabindex="-1"
+                                                        role="dialog" aria-labelledby="modalLabel{{ $detail->id }}"
                                                         aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title"
-                                                                        id="modalLabel{{ $index }}">Detail Absensi
+                                                                        id="modalLabel{{ $detail->name }}">Detail Absensi {{ $detail->name }}
                                                                     </h5>
                                                                     <button type="button" class="close"
                                                                         data-dismiss="modal" aria-label="Close">

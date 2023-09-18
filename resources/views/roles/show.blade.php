@@ -5,8 +5,8 @@
                 <div class="card-body box-profile ">
                     <div class="text-center">
                         <img class="profile-user-img img-fluid img-circle"
-                        src="{{asset('images/pp.png')}}"
-                        alt="User profile picture">
+                        src="{{ asset('assets/img/undraw_profile.svg') }}"
+                        alt="User profile picture" style="max-width: 50%">
                     </div>
                     <h3 class="profile-username text-center"> Role {{ $role->name }}</h3>
 

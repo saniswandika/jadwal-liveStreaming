@@ -16,9 +16,16 @@ class FullCalenderController extends Controller
      * @return response()
 
      */
+    private $checkRoles;
 
+    public function __construct()
+    {
+        $this->checkRoles = new RoleController;
+    }
     public function index(Request $request)
     {
+
+        $checkRoles = $this->checkRoles->getRoles();
         if($request->ajax()) {
        
             $data = Event::whereDate('start', '>=', $request->start)
@@ -27,7 +34,7 @@ class FullCalenderController extends Controller
  
             return response()->json($data);
        }
-        return view('fullcalender');
+        return view('fullcalender',compact('checkRoles'));
     }
 
 
