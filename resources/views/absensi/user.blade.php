@@ -25,7 +25,7 @@
                 @endif
                 <div class="row">
                     <div class="col-lg-3 margin-tb">
-                        Nama Pegawai : <b>{{ auth()->user()->name }}</b>
+                        Nama Karyawan : <b>{{ auth()->user()->name }}</b>
                     </div>
 
                     <div class="col-lg-9 margin-tb">
@@ -95,6 +95,8 @@
                                                         </div>
 
                                                         <div class="form-group col-md-6">
+
+                                                            {{-- Menampilkan Data Event/Acara/Jadwal --}}
                                                             <label for="nama_acara">Nama Acara</label>
                                                             <select
                                                                 class="form-control @error('nama_acara') is-invalid @enderror"
@@ -199,10 +201,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($periode as $item)
+                            @foreach ($absensiByBulan as $bulan => $detailsPerBulan)
+    
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->periode }}</td>
+                                    <td> {{ date('F Y', strtotime($bulan)) }}</td>
                                     <td>
                                         <table>
                                             <tr>
@@ -213,7 +216,8 @@
                                                         ->get();
                                                     $count = count($details);
                                                 @endphp
-                                                @foreach ($absensiDetails as $index => $detail)
+                                               
+                                                @foreach ($detailsPerBulan as $index => $detail)
                                                     <td>
                                                         <p>{{ date('d', strtotime($detail->tanggal_absen)) }}</p>
                                                         <button
@@ -246,7 +250,7 @@
                                                                     <p>Nama: {{ $detail->name }}</p>
                                                                     <p>Nama Acara: {{ $detail->nama_acara }}</p>
                                                                     <p>Bukti Kehadiran: <img
-                                                                            src="{{ url('storage/bukti_absen/' . $detail->bukti_absen) }}"
+                                                                            src="{{ asset('bukti_absen/' . $detail->bukti_absen) }}"
                                                                             alt="Bukti Kehadiran" style="max-width: 50%">
                                                                     </p>
                                                                     <p>Kehadiran:

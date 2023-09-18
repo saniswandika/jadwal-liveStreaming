@@ -27,7 +27,7 @@
       <div class="container-fluid">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Tabel Management Akun</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Tabel Manajemen Akun</h6>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -36,7 +36,7 @@
                             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                                 <h1 class="h3 mb-0 text-gray-800"></h1>
                                 @can('pemakaian-create')
-                                <a class="btn btn-success" data-toggle="modal" data-target="#create"> Buat Akun</a>
+                                <a class="btn btn-success" data-toggle="modal" data-target="#create"> Tambah Akun</a>
                                 @endcan
                             </div>
                         
@@ -68,9 +68,8 @@
                                 @endif
                               </td>
                               <td>
-                                @can('pemakaian-list')
                                   <a class="btn btn-info"  data-toggle="modal" data-target="#details{{$user->id}}">Lihat</a>
-                                @endcan
+                                
                                 @can('pemakaian-list')
                                   <a class="btn btn-primary" data-toggle="modal" data-target="#update{{$user->id}}">Edit</a>
                                 @endcan

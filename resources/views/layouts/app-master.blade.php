@@ -158,7 +158,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/users">
                         <i class="bi bi-person-vcard-fill"></i>
-                        <span>Management Akun</span></a>
+                        <span>Manajemen Akun</span></a>
                 </li>
             @endcan    
 

@@ -20,8 +20,8 @@
                     <table id="example" class="table table-bordered text-center">
                         <thead>
                             <tr>
-                                <th>Details</th>
-                                <th>Periodde</th>
+                                <th>Detail</th>
+                                <th>Periode</th>
                             </tr>
                         </thead>
                         <tbody>

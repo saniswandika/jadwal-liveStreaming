@@ -172,7 +172,7 @@
                         <div class="pull-right">
                             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalMd">
-                                    Tanggal Live streaming
+                                    Kalender Jadwal
                                   </button>
                                 <h1 class="h3 mb-0 text-gray-800"></h1>
                                 {{-- @can('jadwal-create') --}}
@@ -180,7 +180,7 @@
                                     <h1 class="h3 mb-0 text-gray-800"></h1>
                                     @can('inventaris-create')
                                       <!-- Button trigger modal -->
-                                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                                                 Tambah Jadwal
                                             </button>
                                             

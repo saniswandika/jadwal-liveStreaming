@@ -38,7 +38,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Pegawai</th>
+                                <th>Nama Karyawan</th>
                                 <th>Tanggal Absensi</th>
                             </tr>
                         </thead>
@@ -88,7 +88,8 @@
                                                                     <p>Tanggal Absen: {{ $detail->tanggal_absen }}</p>
                                                                     <p>Nama: {{ $detail->name }}</p>
                                                                     <p>Nama Acara: {{ $detail->nama_acara }}</p>
-                                                                    <p>Bukti Kehadiran: <img src="{{ url('storage/bukti_absen/' . $detail->bukti_absen) }}" alt="Bukti Kehadiran" style="max-width: 50%"></p>
+                                                                    <p>Bukti Kehadiran:</p>
+                                                                    <img src="{{ asset('bukti_absen/' . $detail->bukti_absen) }}" alt="Bukti Kehadiran" style="max-width: 50%">
                                                                     <p>Kehadiran:
                                                                         {{ $detail->attendance ? 'Hadir' : 'Tidak Hadir' }}
                                                                     </p>
